@@ -1,0 +1,29 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+    {% include 'website/includes/header.html' %}
+    <br><br>
+    <div class="container shadow-lg p-3 mb-5 bg-white rounded">
+
+            <br><br>
+            {% for pos in post %}
+                <div class="row">
+                <h2 class="fs-4 text-center">{{ pos.title }}</h2>
+                <hr>
+                <br>
+                <img src={{pos.img.url}} alt="" width="1000px" height="auto">
+
+                <span class=" fs-5">{{ pos.text | safe }}</span>
+                <b class=" fs-6">{{ pos.date }}</b>
+                <hr>
+                </div>
+            {% endfor %}
+
+    </div>
+
+
+    {% include 'website/includes/footer.html' %}
+{% endblock %}
+</body>
+
+</html>

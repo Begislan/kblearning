@@ -1,0 +1,143 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+{% include 'website/includes/header.html' %}
+<div class="container shadow-lg p-3 mb-5 bg-white rounded">
+    <div class="row w-100" style="padding-top:50px">
+
+
+        {% include 'website/includes/sidebar.html' %}
+
+            
+        <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-9 ">
+            <h1 class="fs-4 text-center">Сайттагы өзүңүз кааланган тема боюнча маалымат алуу үчүн категориядан тандап
+                алсаңыз болот.</h1>
+
+            <div class="row">
+                <div class="col   bg-light shadow  mb-5 rounded " style=" height: 100vh; padding-top:30px ">
+                    <main class="d-flex flex-nowrap overflow-auto" style="height: 100vh;width: 100%; overflow-x:auto ">
+                        <div class="flex-shrink-0 " style="width: 100%; ">
+
+                            <ul class=" btn-toggle-nav list-unstyled   border rounded" style="width: 100%; ">
+                                {% for raz in razs %}
+                                <li style="width: 100%; ">
+                                    <a class=" btn btn-toggle a1rem " data-bs-toggle="collapse"
+                                        data-bs-target="#home-collapse{{ raz.id }}" aria-expanded="false">
+                                        {{ raz.name }}
+                                    </a>
+                                    <div class="collapse border border-info border-start-0 rounded-end show"
+                                        id="home-collapse{{ raz.id }}" style="width: 100%; ">
+                                        <ul class="btn-toggle-nav list-unstyled p-3" style="width: 100%; ">
+                                            {% for glav in glavs %}
+                                            {% if raz.id == glav.razdel_id %}
+                                            <li class="" style="width: 100%; ">
+                                                <a class="fs-6  btn btn-toggle a1rem  " data-bs-toggle="collapse"
+                                                    data-bs-target="#home-collapse{{ raz.id }}_{{ glav.id }}"
+                                                    aria-expanded="false">
+                                                    {{ glav.name }}
+                                                </a>
+                                                <div class="collapse border border-success border-start-0 rounded-end show"
+                                                    id="home-collapse{{ raz.id }}_{{ glav.id }}">
+                                                    <ul class=" btn-toggle-nav list-unstyled  p-3">
+                                                        {% for them in dataTheme %}
+                                                        {% if glav.id == them.id_glav_id %}
+
+                                                        {% for dName in dNames %}
+                                                        <li style="display:flex; border-bottom:1px solid gray; padding:2px;"
+                                                            class="openLink{{them.id}}_{{dName.id}}"
+                                                            onclick="openPage({{ raz.id }}, {{ glav.id }}, {{them.id}}, {{dName.id}})">
+                                                            <b><a class="aaa "
+                                                                    href="{% url 'them_cat' dName.id them.id %}">
+                                                                    {{ them.theme }}
+                                                                </a></b>
+                                                            <br>
+                                                        </li>
+                                                        {% endfor %}
+
+                                                        {% endif %}
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+
+                                            </li>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                {% endfor %}
+                            </ul>
+
+
+                            {# Новости#}
+                            <!-- <div class="card p-2 bg-dark border">
+                    <center><h1 class="text-light">Новости</h1></center>
+                    <img src="https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRwtxfvb7anJVtLgwts3G5JQ" alt="">
+                    <h4 class="text-light">Новые новости сайта</h4>
+                    <a class="btn btn-light " href="">Читать далее</a>
+                </div>
+               <div class="card p-2 bg-dark border">
+                    <center><h1 class="text-light">Новости</h1></center>
+                    <img src="https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRwtxfvb7anJVtLgwts3G5JQ" alt="">
+                    <h4 class="text-light">Новые новости сайта</h4>
+                    <a class="btn btn-light " href="">Читать далее</a>
+                </div>
+               <div class="card p-2 bg-dark border">
+                    <center><h1 class="text-light">Новости</h1></center>
+                    <img src="https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRwtxfvb7anJVtLgwts3G5JQ" alt="">
+                    <h4 class="text-light">Новые новости сайта</h4>
+                    <a class="btn btn-light " href="">Читать далее</a>
+                </div> -->
+
+
+
+                        </div>
+
+
+                    </main>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+</div>
+<script>
+    window.onload = () => {
+        let a = document.querySelectorAll("a")
+        for (let i = 0; i < a.length; i++) {
+            a[i].style.fontSize = "1rem";
+        }
+        let aaa = document.querySelectorAll(".aaa")
+        for (let i = 0; i < aaa.length; i++) {
+            aaa[i].style.fontSize = "0.9rem";
+        }
+        let s = document.querySelectorAll("span")
+        for (let i = 0; i < s.length; i++) {
+            s[i].style.fontSize = "1rem";
+            s[i].style.color = "black";
+        }
+        let l = document.querySelectorAll("li")
+        for (let i = 0; i < l.length; i++) {
+            l[i].style.color = "black";
+            l[i].style.fontSize = "1rem";
+        }
+        let a1rem = document.querySelectorAll(".a1rem")
+        for (let i = 0; i < a1rem.length; i++) {
+            a1rem[i].style.fontSize = "1rem";
+        }
+        let img = document.querySelectorAll("img")
+        for (let i = 0; i < img.length; i++) {
+            img[i].classList.toggle("img-thumbnail")
+        }
+
+    }
+
+</script>
+{% include 'website/includes/footer.html' %}
+{% endblock %}

@@ -1,0 +1,390 @@
+{% block content %}
+    {% load static %}
+    <style>
+        .d-active-778 {
+            display: none;
+        }
+
+        @media (max-width: 778px) {
+            .d-none-778 {
+                display: none;
+            }
+        }
+
+        @media (max-width: 678px) {
+            .d-active-778 {
+                display: block;
+            }
+        }
+
+        /* Анимации */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Основные стили навигации */
+        .navbar-kb {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            /*  padding: 0.8rem 0;*/
+            animation: slideDown 0.4s ease-out;
+        }
+
+        .navbar-brand-kb {
+            color: #f1c40f !important;
+            font-weight: 700;
+            font-size: 1.6rem !important;
+            letter-spacing: -0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .navbar-brand-kb:hover {
+            color: #f39c12 !important;
+            transform: translateX(2px);
+        }
+
+        .navbar-brand-kb::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #f1c40f;
+            transition: width 0.3s ease;
+        }
+
+        .navbar-brand-kb:hover::after {
+            width: 100%;
+        }
+
+        /* Элементы меню */
+        .nav-item-kb {
+            margin: 0 4px;
+            position: relative;
+        }
+
+        .nav-link-kb {
+            color: #ecf0f1 !important;
+            font-weight: 500;
+            padding: 10px 16px !important;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link-kb::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-link-kb:hover::before {
+            left: 100%;
+        }
+
+        .nav-link-kb:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #f1c40f !important;
+            transform: translateY(-1px);
+        }
+
+        /* Выпадающие меню */
+        .dropdown-menu-kb {
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.3s ease-out;
+            margin-top: 8px !important;
+            min-width: 280px;
+        }
+
+        .dropdown-item-kb {
+            color: #ecf0f1;
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dropdown-item-kb:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item-kb::before {
+            content: '';
+            position: absolute;
+            left: -100%;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(241, 196, 15, 0.1), transparent);
+            transition: left 0.4s;
+        }
+
+        .dropdown-item-kb:hover::before {
+            left: 100%;
+        }
+
+        .dropdown-item-kb:hover {
+            background: rgba(52, 73, 94, 0.8);
+            color: #f1c40f;
+            padding-left: 25px;
+        }
+
+        .dropdown-item-kb.active {
+            background: rgba(241, 196, 15, 0.1);
+            color: #f1c40f;
+            border-left: 3px solid #f1c40f;
+        }
+
+        /* Кнопка бургер-меню */
+        .navbar-toggler-kb {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            padding: 6px 10px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-toggler-kb:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #f1c40f;
+        }
+
+        .navbar-toggler-icon-kb {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28241, 196, 15, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* Активные состояния */
+        .nav-link-kb.active {
+            background: rgba(241, 196, 15, 0.15);
+            color: #f1c40f !important;
+            border: 1px solid rgba(241, 196, 15, 0.3);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 991px) {
+            .navbar-collapse-kb {
+                background: rgba(44, 62, 80, 0.98);
+                backdrop-filter: blur(20px);
+                border-radius: 12px;
+                margin-top: 10px;
+                padding: 15px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-item-kb {
+                margin: 2px 0;
+            }
+
+            .nav-link-kb {
+                border-radius: 6px;
+                margin: 2px 0;
+            }
+
+            .dropdown-menu-kb {
+                background: rgba(52, 73, 94, 0.9);
+                border: none;
+                box-shadow: none;
+                margin: 5px 0 !important;
+            }
+        }
+
+        @media (max-width: 678px) {
+            .navbar-kb {
+                padding: 0.6rem 0;
+            }
+
+            .navbar-brand-kb {
+                font-size: 1.4rem !important;
+            }
+        }
+
+        /* Индикатор текущей страницы */
+        .current-page-indicator {
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #f1c40f;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link-kb:hover .current-page-indicator {
+            width: 70%;
+        }
+
+        /* Анимация появления элементов */
+        .nav-item-kb {
+            animation: fadeIn 0.5s ease-out backwards;
+        }
+
+        .nav-item-kb:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .nav-item-kb:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .nav-item-kb:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .nav-item-kb:nth-child(4) {
+            animation-delay: 0.25s;
+        }
+
+        .nav-item-kb:nth-child(5) {
+            animation-delay: 0.3s;
+        }
+    </style>
+
+    <nav class="navbar navbar-expand-lg navbar-kb position-fixed w-100 z-1">
+        <div class="container-fluid">
+            <a class="navbar-brand navbar-brand-kb ms-3" href="{% url 'home' %}">
+                KBlearning
+            </a>
+
+            <button class="navbar-toggler navbar-toggler-kb me-3 d-lg-none" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon-kb"></span>
+            </button>
+
+            <div class="collapse navbar-collapse navbar-collapse-kb" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto ms-3">
+                    {% for data in dataCat %}
+                        <li class="nav-item dropdown nav-item-kb">
+                            <a class="nav-link dropdown-toggle nav-link-kb"
+                               href="#" id="navbarDropdown_{{ data.id }}" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                📁 {{ data.title }}
+                                <span class="current-page-indicator"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-kb" aria-labelledby="navbarDropdown_{{ data.id }}">
+                                {% for dName in dataNameCat %}
+                                    {% if data.id == dName.id_cat_id %}
+                                        <a class="dropdown-item dropdown-item-kb headerPage{{ dName.id }}"
+                                           onclick="headerPage({{ dName.id }})"
+                                           href="{% url 'cat' dName.id %}">
+                                            📁 {{ dName.title }}
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </li>
+                    {% endfor %}
+
+                    <li class="nav-item nav-item-kb">
+                        <a class="nav-link nav-link-kb" href="{% url 'programms' %}">
+                            📋 Программалар
+                            <span class="current-page-indicator"></span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item nav-item-kb">
+                        <a class="nav-link nav-link-kb" href="{% url 'about' %}">
+                            👨‍🏫 Биз жөнүндө
+                            <span class="current-page-indicator"></span>
+                        </a>
+                    </li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        function headerPage(a) {
+            localStorage.setItem("dateKBHeader", a);
+        }
+
+        function headerPageMain() {
+            if (localStorage.getItem("dateKBHeader")) {
+                let r = (location.href).split("/");
+                let x = localStorage.getItem("dateKBHeader");
+                if (+r[r.length - 1] == +x) {
+                    let headerElement = document.querySelector(`.headerPage${x}`);
+                    if (headerElement) {
+                        headerElement.classList.add("active");
+                    }
+                }
+            }
+        }
+
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function () {
+            headerPageMain();
+
+            // Добавляем интерактивность для dropdown
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('mouseenter', function () {
+                    const dropdown = this.nextElementSibling;
+                    if (dropdown && dropdown.classList.contains('dropdown-menu')) {
+                        dropdown.style.display = 'block';
+                    }
+                });
+
+                toggle.addEventListener('mouseleave', function () {
+                    const dropdown = this.nextElementSibling;
+                    if (dropdown && dropdown.classList.contains('dropdown-menu')) {
+                        // Небольшая задержка перед скрытием
+                        setTimeout(() => {
+                            if (!dropdown.matches(':hover')) {
+                                dropdown.style.display = 'none';
+                            }
+                        }, 200);
+                    }
+                });
+            });
+
+            // Закрываем dropdown при уходе курсора
+            const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+            dropdownMenus.forEach(menu => {
+                menu.addEventListener('mouseleave', function () {
+                    this.style.display = 'none';
+                });
+            });
+        });
+    </script>
+
+{% endblock %}

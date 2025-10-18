@@ -1,0 +1,24 @@
+{% extends 'website/base.html' %}
+{% block content %}
+    {% include 'website/includes/header.html' %}
+
+    <div class="container" style="min-height: 90vh;">
+        <br><br><br>
+        <center><h1 class="text-light">Регистрация</h1>
+            <form action="{% url 'register' %}" method="POST" class="form">
+                {% csrf_token %}
+                <input type="text" name="username" class="form-control" placeholder="Ник (Username)">
+                <input type="text" name="first_name" class="form-control" placeholder="Имя">
+                <input type="text" name="last_name" class="form-control" placeholder="Фамилия">
+                <input type="email" name="email" class="form-control" placeholder="email">
+                <input type="tel" name="phone" class="form-control" placeholder="+996">
+                <input type="password" name="password" class="form-control" placeholder="Пароль">
+                <input type="password" name="re_password" class="form-control" placeholder="Повторение пароля">
+                <button type="submit" class="btn btn-success">Регистроваться</button>
+                <br>
+            </form>
+            <br>
+    </div></center>
+    {% include 'website/includes/footer.html' %}
+
+{% endblock %}

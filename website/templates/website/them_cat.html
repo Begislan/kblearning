@@ -1,0 +1,204 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+{% include 'website/includes/header.html' %}
+
+<div class="container shadow-lg bg-white rounded">
+    <div class="row" style="padding-top: 50px;">
+
+        {% include 'website/includes/sidebar.html' %}
+
+        <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-9 bg-white" >
+            <style>img{max-width:100%;}</style>
+             <div class="myReload text-center">
+                <div class="spinner-border text-secondary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            {% for post in them %}
+            <script>
+            document.querySelector("title").innerHTML =` {{post.id_namecategories}} {{post.theme}} `
+            </script>
+            <div class="bg-white myScript" style="width: 100%; overflow:scroll">
+                <h2>{{post.id_namecategories}}</h2>
+                <center><h3>{{post.theme}}</h3></center>
+                <p>{{ post.full_text | safe }}</p>
+
+            </div>
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+</div>
+<script>
+window.onload = () => {
+
+    document.querySelector(".myReload").innerHTML = ""
+    let a = document.querySelectorAll("a")
+    for (let i = 0; i < a.length; i++) {
+        a[i].style.fontSize= "1rem";
+    }
+    let aaa = document.querySelectorAll(".aaa")
+    for (let i = 0; i < aaa.length; i++) {
+        aaa[i].style.fontSize= "0.9rem";
+    }
+    let s = document.querySelectorAll("span")
+    for (let i = 0;i < s.length; i++) {
+        s[i].style.fontSize= "1rem";
+        s[i].style.color = "black";
+    }
+    let l = document.querySelectorAll("li")
+    for (let i = 0; i < l.length; i++) {
+        l[i].style.color = "black";
+        l[i].style.fontSize= "1rem";
+    }
+    let a1rem = document.querySelectorAll(".a1rem")
+    for (let i = 0; i < a1rem.length; i++) {
+        a1rem[i].style.fontSize= "1rem";
+    }
+    let img = document.querySelectorAll("img")
+    for (let i = 0; i < img.length; i++) {
+        img[i].classList.toggle("img-thumbnail")
+    }
+    let myScript = document.querySelector(".myScript").innerHTML
+    let r = ""
+    let i = true
+
+    while(i) {
+        let x = +myScript.search("@A@")
+
+        if (x >- 1) {
+            r += myScript.substr(0,x)+"<div class='codes  p-2  rounded' style='background:rgba(0,0,0,0.1);border:1px solid gray;font-weight:bold;  border-left:3px solid green; color:black;'> <b style='color:gray; display:flex; width:100%; border-bottom:1px solid gray;'>Код:</b>"
+            let y = myScript.substr(x+3,myScript.length)
+            let z = y.search("@A@")
+            let zs = myScript.substr(x+3,z)
+            let tz = zs.split("\n")
+            console.log(tz)
+            let tzn = 0
+            for (let i = 0; i < tz.length; i++) if (tz[i].trim() != "" && tz[i].trim() != " ")tzn += 1
+            let numbers = "<div class='codeNumber' style='border-right:2px solid green; min-width:20px;'>"
+            for (let i = 0; i < tzn; i++) numbers += "<strong style='display:block; margin-right:5px; text-align:right'>" + (i+1)+ "</strong>"
+            numbers +="</div>"
+            r +="<div style='width:100%; display:flex;overflow:auto;'>" +numbers+"<div style='padding-left:5px; min-width:700px;overflow:auto; '>" +zs +"</div>" +"</div></div>"
+            myScript = myScript.substr(x+z+6, myScript.length)
+        } else {
+            i = false
+            r += myScript
+        }
+    }
+
+    document.querySelector(".myScript").innerHTML = r;
+    s = document.querySelectorAll(".codes span")
+    for (let i = 0;i < s.length; i++) {
+        s[i].style.fontSize= "1rem";
+        s[i].style.color = "black";
+        s[i].style.fontWeight = "bold";
+        s[i].style.margin = "0px";
+        s[i].style.padding = "0px";
+        let context = s[i].innerHTML
+        if (context.search(`'`) >-1 || context.search(`"`) >-1) s[i].style.color = ""
+    }
+
+     s = document.querySelectorAll(".codes p")
+    for (let i = 0;i < s.length; i++) {
+        s[i].style.fontSize= "1rem";
+        s[i].style.color = "black";
+        s[i].style.fontWeight = "bold";
+        s[i].style.margin = "0px";
+        s[i].style.padding = "0px";
+
+    }
+
+
+    myScript = document.querySelector(".myScript").innerHTML
+    r = ""
+    i = true
+
+    while(i) {
+        let x = +myScript.search("@T@")
+
+        if (x >- 1) {
+            r += myScript.substr(0,x)+"<div class='terminal  p-2  rounded' style='background:black;border:1px solid gray;  border-left:3px solid green; color:white;'><b style='color:gray; display:flex; width:100%; border-bottom:1px solid gray;'>Жооп:</b>"
+            let y = myScript.substr(x+3,myScript.length)
+            let z = y.search("@T@")
+            console.log(z)
+            r += myScript.substr(x+3,z)+"</div>"
+            myScript = myScript.substr(x+z+6, myScript.length)
+        } else {
+            i = false
+            r += myScript
+        }
+    }
+
+    document.querySelector(".myScript").innerHTML = r;
+    s = document.querySelectorAll(".terminal span")
+    for (let i = 0;i < s.length; i++) {
+        s[i].style.fontSize= "1rem";
+        s[i].style.color = "white";
+        s[i].style.fontWeight = "bold";
+        s[i].style.margin = "0px";
+        s[i].style.padding = "0px";
+    }
+    s = document.querySelectorAll(".terminal p")
+    for (let i = 0;i < s.length; i++) {
+        s[i].style.fontSize= "1rem";
+        s[i].style.color = "white";
+        s[i].style.fontWeight = "bold";
+        s[i].style.margin = "0px";
+        s[i].style.padding = "0px";
+    }
+
+    myScript = document.querySelector(".myScript").innerHTML
+    r = ""
+    i = true
+
+    while(i) {
+        let x = +myScript.search("@E@")
+
+        if (x >- 1) {
+            r += myScript.substr(0,x)+"<div class='terminalError  p-2  rounded' style='background:white;border:1px solid gray;  border-left:3px solid green; color:red;'> <b style='color:gray; display:flex; width:100%; border-bottom:1px solid gray;'>Туура эмес:</b>"
+            let y = myScript.substr(x+3,myScript.length)
+            let z = y.search("@E@")
+            console.log(z)
+            r += myScript.substr(x+3,z)+"</div>"
+            myScript = myScript.substr(x+z+6, myScript.length)
+        } else {
+            i = false
+            r += myScript
+        }
+    }
+
+    document.querySelector(".myScript").innerHTML = r;
+    s = document.querySelectorAll(".terminalError span")
+    for (let i = 0;i < s.length; i++) {
+        s[i].style.fontSize= "1rem";
+        s[i].style.color = "red";
+        s[i].style.fontWeight = "bold";
+        s[i].style.margin = "0px";
+        s[i].style.padding = "0px";
+    }
+    s = document.querySelectorAll(".terminalError p")
+    for (let i = 0;i < s.length; i++) {
+        s[i].style.fontSize= "1rem";
+        s[i].style.color = "red";
+        s[i].style.fontWeight = "bold";
+        s[i].style.margin = "0px";
+        s[i].style.padding = "0px";
+    }
+
+
+
+
+
+}
+showSlideBar();
+</script>
+
+{% include 'website/includes/footer.html' %}
+{% endblock %}
+
+</body>
+
+</html>

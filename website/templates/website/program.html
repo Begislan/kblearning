@@ -1,0 +1,132 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+
+{% include 'website/includes/header.html' %}
+<div class="container-fluid shadow p-3 pt-5 mb-5 rounded"><br>
+    <div class="row">
+        <div class="col-lg-2 col-md-3 d-none-778 p-0" style="height:95vh; overflow-y:auto; position:sticky; top:8vh">
+             <div class="row px-3">
+                 <div class="col-12 rounded text-center d-flex align-items-center gap-2 bg-white w-100 p-2">
+                     <img src = "https://cdn.freebiesupply.com/logos/large/2x/it-2-logo-png-transparent.png" width="30">
+                    <span class="fs-5">IT жаңылыктар</span>
+                 </div>
+                 {% for i in it %}
+                 <div class="col-12 rounded bg-white w-100 p-2 my-2">
+                    <div class="d-flex align-items-center justify-content-center rounded p-1 bg-light" style="min-width:100%; max-width:100%; min-height:180px; max-height:180px;">
+                        <a href="{{ i.link}}" target="_blank">
+                            <img src="{{ i.img }}" class="rounded" style="max-width: 100%; max-height:180px;">
+                        </a>
+                    </div>
+                 </div>
+                 {% endfor %}
+             </div>
+        </div>
+        <div class="col-lg-8 col-md-6">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row shadow bg-white rounded " style="padding:10px; margin:0; margin-left:-0.5%; width:101%;">
+                        <div class="col-sm-6 col-12 fs-5 d-flex align-items-center">
+                            <b>Колдонмо программалар</b>
+                        </div>
+                        <div class="col-sm-6 col-12 d-flex align-items-center">
+                            <input type="text" class="fs-6 w-100  border border-secondary" style="margin:0px; padding: 10px 5px"oninput="searching(this)" placeholder = "Издоо...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+              <div class="row mb-2">
+                {% for i in programs %}
+
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12 p-1  programBlock "title='{{i.name}}' style="display:flex; cursor:pointer;">
+                  <div class="row g-0 shadow  bg-white rounded border  overflow-hidden flex-md-row mb-4  h-md-250 position-relative ">
+                    <div class="col p-4 flex-column position-static bg-white  text-dark d-flex " >
+                        <div class=" d-flex justify-content-center d w-100 bg-light align-items-center p-3 rounded" style="height:180px;">
+                          <img src="{{ i.img.url }}" class="bd-placeholder-img" style="max-width:100%; min-height:150px; max-height:100%">
+                        </div>
+                      <strong class="d-inline-block mb-2 text-dark fs-5"> {{i.name}} </strong>
+                      <hr>
+                      <div style="height:150px; overflow:auto; width:100%">
+                          <span>
+                             {{ i.info }}
+                          </span>
+                      </div>
+
+                      <a href="{{ i.link }}" class="btn btn-success w-100 col " style="border-radius:0;">Сактоо</a>
+                    </div>
+
+                  </div>
+                </div>
+            {% endfor %}
+            </div>
+        <div>
+        </div>
+        </div>
+        <div class="col-md-2 col-sm-6 d-active-778 p-0">
+             <div class="row px-3">
+                 <div class="col-12 rounded text-center d-flex align-items-center gap-2 bg-white w-100 p-2">
+                     <img src = "https://cdn.freebiesupply.com/logos/large/2x/it-2-logo-png-transparent.png" width="30">
+                    <span class="fs-5">IT жаңылыктар</span>
+                 </div>
+                 {% for i in it %}
+                 <div class="col-12 rounded bg-white w-100 p-2 my-2">
+                    <div class="d-flex align-items-center justify-content-center rounded p-1 bg-light" style="min-width:100%; max-width:100%; min-height:180px; max-height:180px;">
+                        <a href="{{ i.link}}" target="_blank">
+                            <img src="{{ i.img }}" class="rounded" style="max-width: 100%; max-height:180px;">
+                        </a>
+                    </div>
+                 </div>
+                 {% endfor %}
+             </div>
+        </div>
+         <div class="col-lg-2 col-md-3 col-sm-6 p-0" style="height:95vh; overflow-y:auto; position:sticky; top:8vh">
+             <div class="row px-3">
+                 <div class="col-12 rounded text-center d-flex align-items-center gap-2 bg-white w-100 p-2">
+                     <img src = "https://www.oshsu.kg/main/images/logo/white-logo.svg" width="30">
+                    <span class="fs-5">ОшМУ жаңылыктар</span>
+                 </div>
+
+                 {% for res in info %}
+                 <div class="col-12 rounded bg-white w-100 p-2 my-2">
+                    <div class="d-flex align-items-center justify-content-center rounded p-1 bg-light" style="min-width:100%; max-width:100%; min-height:180px; max-height:180px;">
+                        <a href="{{ res.link }}" target="_blank">
+                            <img src="{{ res.img }}" class="rounded" style="max-width: 100%; max-height:180px;">
+                        </a>
+                    </div>
+                 </div>
+                 {% endfor %}
+             </div>
+        </div>
+</div>
+</div>
+
+<script>
+
+document.querySelector("body").style.background= "#eee";
+let programBlocks = document.querySelectorAll(".programBlock");
+
+let link = location.href
+let vals = link.substr(link.search("search=")+"search=".length, link.length)
+if (link.search("search=") > -1)finding(vals)
+function searching(e) {
+    var val = (e.value).toLowerCase();
+    finding(val);
+}
+function finding(val) {
+    for (let i = 0; i < programBlocks.length; i++) {
+        programBlocks[i].style.display= "flex";
+    }
+
+    for (let i = 0; i < programBlocks.length; i++) {
+        if (((programBlocks[i].title).toLowerCase()).search(val) > -1) {
+            programBlocks[i].style.display= "flex";
+            // location.href = "?search="+val
+            history.pushState(null, null,"?search=" + val);
+        } else {
+            programBlocks[i].style.display= "none";
+        }
+    }
+}
+</script>
+{% include 'website/includes/footer.html' %}
+{% endblock %}

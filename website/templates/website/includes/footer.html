@@ -1,0 +1,364 @@
+{% block content %}
+    <script>
+        if (document.querySelector(".categoriaActive")) {
+            document.querySelector(".categoriaActive").onclick = () => {
+                document.querySelector(".autoDevice").classList.toggle("autoDeviceActive")
+            }
+        }
+    </script>
+
+    <style>
+        /* Анимации для футера */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Основные стили футера */
+        .footer-kb {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: #ecf0f1;
+            border-top: 3px solid #f1c40f;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-kb::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #f1c40f, transparent);
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-text {
+            font-size: 1rem;
+            color: #bdc3c7;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-university {
+            color: #f1c40f;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-developers {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .developer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .developer-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(241, 196, 15, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .developer-link:hover::before {
+            left: 100%;
+        }
+
+        .developer-link:hover {
+            background: rgba(241, 196, 15, 0.1);
+            border-color: #f1c40f;
+            color: #f1c40f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(241, 196, 15, 0.2);
+        }
+
+        .whatsapp-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .developer-link:hover .whatsapp-icon {
+            animation: pulse 1s ease-in-out;
+        }
+
+        .footer-divider {
+            color: #7f8c8d;
+            margin: 0 0.5rem;
+        }
+
+        /* Декоративные элементы */
+        .footer-decoration {
+            position: absolute;
+            opacity: 0.1;
+            font-size: 3rem;
+        }
+
+        .footer-decoration-1 {
+            top: 10px;
+            left: 10%;
+            animation: slideIn 1s ease-out 0.2s both;
+        }
+
+        .footer-decoration-2 {
+            bottom: 10px;
+            right: 10%;
+            animation: slideIn 1s ease-out 0.4s both;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .footer-developers {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .developer-link {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .footer-text {
+                font-size: 0.9rem;
+            }
+
+            .footer-university {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-kb {
+                padding: 1.5rem 1rem !important;
+            }
+
+            .footer-content {
+                text-align: center;
+            }
+        }
+
+        /* Эффект частиц */
+        .footer-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #f1c40f;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            left: 20%;
+            animation-delay: 1s;
+        }
+
+        .particle:nth-child(3) {
+            left: 30%;
+            animation-delay: 2s;
+        }
+
+        .particle:nth-child(4) {
+            left: 40%;
+            animation-delay: 3s;
+        }
+
+        .particle:nth-child(5) {
+            left: 50%;
+            animation-delay: 4s;
+        }
+
+        .particle:nth-child(6) {
+            left: 60%;
+            animation-delay: 5s;
+        }
+
+        .particle:nth-child(7) {
+            left: 70%;
+            animation-delay: 1s;
+        }
+
+        .particle:nth-child(8) {
+            left: 80%;
+            animation-delay: 2s;
+        }
+
+        .particle:nth-child(9) {
+            left: 90%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.3;
+            }
+            25% {
+                transform: translateY(-10px) translateX(5px);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translateY(-5px) translateX(-5px);
+                opacity: 0.7;
+            }
+            75% {
+                transform: translateY(-15px) translateX(3px);
+                opacity: 0.5;
+            }
+        }
+    </style>
+
+    <footer class="footer-kb p-4">
+        <!-- Декоративные элементы -->
+        <div class="footer-decoration footer-decoration-1"></div>
+        <div class="footer-decoration footer-decoration-2"></div>
+
+        <!-- Эффект частиц -->
+        <div class="footer-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+
+        <div class="footer-content text-center">
+            <div class="footer-university">
+                Osh State University / Computer Center
+            </div>
+
+            <div class="footer-text">
+                Educational Platform
+            </div>
+
+            <div class="footer-developers">
+                <span class="footer-text text-light">Developed by:</span>
+
+                <a href="https://wa.me/996770091509" target="_blank" rel="noreferrer" class="developer-link">
+                    <span class="whatsapp-icon">📱</span>
+                    Begislan
+                </a>
+
+                <span class="footer-divider text-light">&</span>
+
+                <a href="https://wa.me/996703421521" target="_blank" rel="noreferrer" class="developer-link">
+                    <span class="whatsapp-icon">📱</span>
+                    Argen
+                </a>
+            </div>
+
+            <div class="footer-text mt-3" style="font-size: 0.8rem; opacity: 0.7;">
+                © 2024 KBlearning. All rights reserved.
+
+                {% if user.is_authenticated %}
+
+                    <a href="{% url 'adm:dashboard' %}">
+                        Админ панел
+                    </a>
+
+
+                {% else %}
+                    <a href="{% url 'login' %}">
+                        Админ панел
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Добавляем интерактивность для футера
+        document.addEventListener('DOMContentLoaded', function () {
+            const developerLinks = document.querySelectorAll('.developer-link');
+
+            developerLinks.forEach(link => {
+                link.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-3px) scale(1.05)';
+                });
+
+                link.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Анимация появления элементов с задержкой
+            const footerElements = document.querySelectorAll('.footer-university, .footer-text, .developer-link');
+            footerElements.forEach((element, index) => {
+                element.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s both`;
+            });
+        });
+    </script>
+
+{% endblock %}

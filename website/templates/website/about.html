@@ -1,0 +1,83 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+    {% include 'website/includes/header.html' %}
+    <div class="container-fluid shadow p-3 pt-5 mb-5 rounded" style="background:#eee;">
+        <br>
+        <div class="row">
+        <div class="col-lg-2 col-md-3 d-none-778 p-0" style="height:95vh; overflow-y:auto; position:sticky; top:8vh">
+             <div class="row px-3">
+                 <div class="col-12 rounded text-center d-flex align-items-center gap-2 bg-white w-100 p-2">
+                     <img src = "https://cdn.freebiesupply.com/logos/large/2x/it-2-logo-png-transparent.png" width="30">
+                    <span class="fs-5">IT жаңылыктар</span>
+                 </div>
+                 {% for i in it %}
+                 <div class="col-12 rounded bg-white w-100 p-2 my-2">
+                    <div class="d-flex align-items-center justify-content-center rounded p-1 bg-light" style="min-width:100%; max-width:100%; min-height:180px; max-height:180px;">
+                        <a href="{{ i.link}}" target="_blank">
+                            <img src="{{ i.img }}" class="rounded" style="max-width: 100%; max-height:180px;">
+                        </a>
+                    </div>
+                 </div>
+                 {% endfor %}
+             </div>
+        </div>
+        <div class="col-lg-8 col-md-6">
+            <h1 class="text-dark bg-white mt-2 rounded px-3 py-2 fs-4">Жумушчулар терезеси</h1>
+            <div class="row  ">
+                {% for i in ab %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 p-1" style="min-height:400px;">
+                        <div class="shadow p-3 bg-white rounded border">
+                            <img src="{{ i.img.url }}" alt="" style="min-height:380px; object-fit: cover;" class="card-img-top rounded-top-4"><br><br>
+                            <h4 class="fs-5">{{ i.fio }}</h4>
+                            <h5 class="fs-6">Кызматы: <span class="text-success ">{{ i.special }}</span></h5>
+                            <h5 class="fs-6">Тел: <span class="text-success">{{ i.phone }}</span></h5>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-6 d-active-778 p-0">
+             <div class="row px-3">
+                 <div class="col-12 rounded text-center d-flex align-items-center gap-2 bg-white w-100 p-2">
+                     <img src = "https://cdn.freebiesupply.com/logos/large/2x/it-2-logo-png-transparent.png" width="30">
+                    <span class="fs-5">IT жаңылыктар</span>
+                 </div>
+                 {% for i in it %}
+                 <div class="col-12 rounded bg-white w-100 p-2 my-2">
+                    <div class="d-flex align-items-center justify-content-center rounded p-1 bg-light" style="min-width:100%; max-width:100%; min-height:180px; max-height:180px;">
+                        <a href="{{ i.link}}" target="_blank">
+                            <img src="{{ i.img }}" class="rounded" style="max-width: 100%; max-height:180px;">
+                        </a>
+                    </div>
+                 </div>
+                 {% endfor %}
+             </div>
+        </div>
+         <div class="col-lg-2 col-md-3 col-sm-6 p-0" style="height:95vh; overflow-y:auto; position:sticky; top:8vh">
+             <div class="row px-3">
+                 <div class="col-12 rounded text-center d-flex align-items-center gap-2 bg-white w-100 p-2">
+                     <img src = "https://www.oshsu.kg/main/images/logo/white-logo.svg" width="30">
+                    <span class="fs-5">ОшМУ жаңылыктар</span>
+                 </div>
+
+                 {% for res in info %}
+                 <div class="col-12 rounded bg-white w-100 p-2 my-2">
+                    <div class="d-flex align-items-center justify-content-center rounded p-1 bg-light" style="min-width:100%; max-width:100%; min-height:180px; max-height:180px;">
+                        <a href="{{ res.link }}" target="_blank">
+                            <img src="{{ res.img }}" class="rounded" style="max-width: 100%; max-height:180px;">
+                        </a>
+                    </div>
+                 </div>
+                 {% endfor %}
+             </div>
+        </div>
+    </div>
+
+
+    {% include 'website/includes/footer.html' %}
+{% endblock %}
+</body>
+
+</html>

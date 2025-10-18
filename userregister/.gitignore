@@ -1,0 +1,81 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+*.py.class
+
+# === Django ===
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+static_root/
+media_root/
+.env
+.env.*
+*.env
+
+# === PyCharm / VSCode ===
+.idea/
+.vscode/
+*.iml
+
+# === Virtual Environment ===
+venv/
+env/
+ENV/
+.venv/
+.virtualenv/
+
+# === Migrations (опционально, если не хотите хранить в git) ===
+# migrations/
+# *!__init__.py
+
+# === System ===
+.DS_Store
+Thumbs.db
+
+# === Coverage / Testing ===
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.cache
+pytest_cache/
+junit.xml
+
+# === MyPy / Pylint / Ruff ===
+.mypy_cache/
+.dmypy.json
+ruff_cache/
+.pyre/
+.pytype/
+
+# === Build / Packaging ===
+build/
+dist/
+*.egg-info/
+.eggs/
+MANIFEST
+
+# === Docker / Compose ===
+*.pid
+*.seed
+*.pid.lock
+docker-compose.override.yml
+
+# === Logs / Dumps ===
+*.log
+*.pot
+*.mo
+*.bak
+*.swp
+*.swo
+*.tmp
+dump.rdb

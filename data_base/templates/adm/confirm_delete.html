@@ -1,0 +1,32 @@
+{% extends 'adm_base.html' %}
+
+{% block title %}Подтверждение удаления{% endblock %}
+{% block page_title %}Подтверждение удаления{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card card-custom">
+            <div class="card-header bg-white text-center">
+                <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+                <h5 class="card-title mb-0">Подтверждение удаления</h5>
+            </div>
+            <div class="card-body text-center">
+                <p class="lead">Вы уверены, что хотите удалить "{{ object }}"?</p>
+                <p class="text-muted">Это действие нельзя будет отменить.</p>
+
+                <form method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger me-2">
+                        <i class="fas fa-trash me-1"></i>Да, удалить
+                    </button>
+                    {% comment %} Просто возвращаем на список тем для темы {% endcomment %}
+                    <a href="{% url 'adm:theme_list' %}" class="btn btn-secondary">
+                        <i class="fas fa-times me-1"></i>Отмена
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

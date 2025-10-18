@@ -1,0 +1,100 @@
+{% extends 'adm_base.html' %}
+
+{% block title %}Массовое добавление тем{% endblock %}
+{% block page_title %}Массовое добавление тем{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card card-custom">
+            <div class="card-header bg-white">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-layer-group me-2"></i>Массовое добавление тем
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Глава *</strong></label>
+                                <select name="glav" class="form-select" required>
+                                    <option value="">Выберите главу</option>
+                                    {% for glav in glavs %}
+                                    <option value="{{ glav.id }}">{{ glav.razdel.categori.title }} → {{ glav.razdel.name }} → {{ glav.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Темы (по одной на строку) *</strong></label>
+                        <textarea name="themes_text" class="form-control" rows="15" 
+                                  placeholder="Введите названия тем, каждое с новой строки. Например:
+
+Введение в предмет
+Основные понятия
+История развития
+Теоретические основы
+Практическое применение
+..." required></textarea>
+                        <div class="form-text">
+                            Каждая строка будет преобразована в отдельную тему. Текст темы будет автоматически создан на основе названия.
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{% url 'adm:theme_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-1"></i>Отмена
+                        </a>
+                        <div>
+                            <a href="{% url 'adm:theme_quick_add' %}" class="btn btn-info me-2">
+                                <i class="fas fa-bolt me-1"></i>Быстрое добавление
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-layer-group me-1"></i>Создать темы
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card card-custom mt-4">
+            <div class="card-header bg-white">
+                <h6 class="card-title mb-0">
+                    <i class="fas fa-info-circle me-2"></i>Инструкция по массовому добавлению
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Преимущества:</h6>
+                        <ul>
+                            <li>Быстрое создание множества тем</li>
+                            <li>Автоматическая нумерация порядка</li>
+                            <li>Единообразная структура тем</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Рекомендации:</h6>
+                        <ul>
+                            <li>Используйте для создания структуры курса</li>
+                            <li>Одна строка = одна тема</li>
+                            <li>Пустые строки игнорируются</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="alert alert-warning mt-3">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Внимание:</strong> После создания тем вы можете отредактировать каждую отдельно для добавления подробного содержания.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
