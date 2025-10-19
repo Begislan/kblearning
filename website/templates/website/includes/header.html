@@ -268,6 +268,16 @@
         .nav-item-kb:nth-child(5) {
             animation-delay: 0.3s;
         }
+
+        /* Стили для автоматически созданного "Дагы" */
+        #moreMenu .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+#moreMenu.d-none {
+    display: none !important;
+}
+
     </style>
 
     <nav class="navbar navbar-expand-lg navbar-kb position-fixed w-100 z-1">
@@ -308,23 +318,27 @@
 
                     <li class="nav-item nav-item-kb">
                         <a class="nav-link nav-link-kb" href="{% url 'programms' %}">
-                            📋 Программалар
+                            Программалар
                             <span class="current-page-indicator"></span>
                         </a>
                     </li>
 
                     <li class="nav-item nav-item-kb">
                         <a class="nav-link nav-link-kb" href="{% url 'about' %}">
-                            👨‍🏫 Биз жөнүндө
+                            Биз жөнүндө
                             <span class="current-page-indicator"></span>
                         </a>
                     </li>
 
 
-
-
-
-
+                    <li class="nav-item dropdown nav-item-kb d-none" id="moreMenu">
+                        <a class="nav-link dropdown-toggle nav-link-kb" href="#" id="moreDropdown"
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            ➕ Дагы
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-kb" aria-labelledby="moreDropdown"
+                            id="moreMenuList"></ul>
+                    </li>
 
 
                 </ul>
@@ -385,6 +399,81 @@
                 });
             });
         });
+
+
+   document.addEventListener('DOMContentLoaded', function () {
+    const nav = document.querySelector('.navbar-nav');
+    const container = document.querySelector('.navbar .container-fluid');
+    const brand = document.querySelector('.navbar-brand');
+    const toggler = document.querySelector('.navbar-toggler');
+
+    if (!nav || !container) return;
+
+    // создаём "Дагы", если его нет
+    let moreLi = document.getElementById('moreMenu');
+    if (!moreLi) {
+        moreLi = document.createElement('li');
+        moreLi.className = 'nav-item dropdown nav-item-kb d-none';
+        moreLi.id = 'moreMenu';
+        moreLi.innerHTML = `
+          <a class="nav-link dropdown-toggle nav-link-kb" href="#" id="moreDropdown"
+             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            ➕ Дагы
+          </a>
+          <div class="dropdown-menu dropdown-menu-kb" aria-labelledby="moreDropdown" id="moreMenuList"></div>
+        `;
+        nav.appendChild(moreLi);
+    }
+
+    const moreMenu = document.getElementById('moreMenu');
+    const moreMenuList = document.getElementById('moreMenuList');
+
+    function resetMenu() {
+        while (moreMenuList.firstChild) {
+            nav.insertBefore(moreMenuList.firstChild, moreMenu);
+        }
+        moreMenu.classList.add('d-none');
+    }
+
+    function adjustNavbar() {
+        resetMenu();
+
+        // если активен гамбургер (мобильная версия) — ничего не делаем
+        if (toggler && getComputedStyle(toggler).display !== 'none') return;
+
+        // ширина доступного пространства = ширина контейнера - ширина бренда - запас - ширина гамбургера (если есть)
+        const containerWidth = container.clientWidth;
+        const brandWidth = brand ? brand.offsetWidth + 40 : 0;
+        const togglerWidth = toggler ? toggler.offsetWidth + 40 : 0;
+        const availableWidth = containerWidth - brandWidth - togglerWidth - 80; // немного запаса
+
+        let usedWidth = 0;
+        const items = Array.from(nav.children).filter(li => li !== moreMenu);
+
+        for (let li of items) {
+            li.classList.remove('d-none');
+            usedWidth += li.offsetWidth;
+
+            // если не помещается — переносим этот и следующие
+            if (usedWidth > availableWidth) {
+                moreMenu.classList.remove('d-none');
+                const start = items.indexOf(li);
+                for (let j = start; j < items.length; j++) {
+                    moreMenuList.appendChild(items[j]);
+                }
+                break;
+            }
+        }
+
+        if (moreMenuList.children.length === 0) {
+            moreMenu.classList.add('d-none');
+        }
+    }
+
+    window.addEventListener('resize', adjustNavbar);
+    window.addEventListener('load', adjustNavbar);
+    adjustNavbar();
+});
     </script>
 
 {% endblock %}

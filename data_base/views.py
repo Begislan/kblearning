@@ -74,9 +74,14 @@ class CategoriesUpdateView(BaseCRUDView, UpdateView):
     template_name = 'adm/categories_form.html'
 
 
-class CategoriesDeleteView(BaseCRUDView, DeleteView):
+class CategoriesDeleteView(DeleteView):
     model = Categories
     template_name = 'adm/confirm_delete.html'
+    success_url = reverse_lazy('adm:categories_list')  # Явно указываем success_url
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, 'Категория успешно удалена!')
+        return super().delete(request, *args, **kwargs)
 
 # CRUD для NameCategories
 class NameCategoriesListView(BaseCRUDView, ListView):
@@ -94,9 +99,11 @@ class NameCategoriesUpdateView(BaseCRUDView, UpdateView):
     form_class = NameCategoriesForm
     template_name = 'adm/namecategories_form.html'
 
-class NameCategoriesDeleteView(BaseCRUDView, DeleteView):
+class NameCategoriesDeleteView(DeleteView):
     model = NameCategories
     template_name = 'adm/confirm_delete.html'
+    success_url = reverse_lazy('adm:namecategories_list')
+
 
 # CRUD для Raz
 class RazListView(BaseCRUDView, ListView):
@@ -114,9 +121,11 @@ class RazUpdateView(BaseCRUDView, UpdateView):
     form_class = RazForm
     template_name = 'adm/raz_form.html'
 
-class RazDeleteView(BaseCRUDView, DeleteView):
+class RazDeleteView(DeleteView):
     model = Raz
     template_name = 'adm/confirm_delete.html'
+    success_url = reverse_lazy('adm:raz_list')
+
 
 # CRUD для Glav
 class GlavListView(BaseCRUDView, ListView):
@@ -134,9 +143,13 @@ class GlavUpdateView(BaseCRUDView, UpdateView):
     form_class = GlavForm
     template_name = 'adm/glav_form.html'
 
-class GlavDeleteView(BaseCRUDView, DeleteView):
+class GlavDeleteView(DeleteView):
     model = Glav
     template_name = 'adm/confirm_delete.html'
+    success_url = reverse_lazy('adm:glav_list')
+
+
+
 
 
 # CRUD для Theme с улучшенными функциями
@@ -254,9 +267,11 @@ class NewsUpdateView(BaseCRUDView, UpdateView):
     template_name = 'adm/news_form.html'
 
 
-class NewsDeleteView(BaseCRUDView, DeleteView):
+class NewsDeleteView(DeleteView):
     model = News
     template_name = 'adm/confirm_delete.html'
+    success_url = reverse_lazy('adm:news_list')
+
 
 
 # CRUD для About
@@ -278,9 +293,11 @@ class AboutUpdateView(BaseCRUDView, UpdateView):
     template_name = 'adm/about_form.html'
 
 
-class AboutDeleteView(BaseCRUDView, DeleteView):
+class AboutDeleteView(DeleteView):
     model = About
     template_name = 'adm/confirm_delete.html'
+    success_url = reverse_lazy('adm:about_list')
+
 
 
 # API функции для AJAX

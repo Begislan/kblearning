@@ -1,0 +1,116 @@
+{% extends 'adm_base.html' %}
+
+{% block title %}{% if form.instance.pk %}Редактирование предмета{% else %}Создание предмета{% endif %}{% endblock %}
+{% block page_title %}{% if form.instance.pk %}Редактирование предмета{% else %}Создание нового предмета{% endif %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card card-custom">
+            <div class="card-header bg-white">
+                <h5 class="card-title mb-0">
+                    <i class="fas {% if form.instance.pk %}fa-edit{% else %}fa-plus{% endif %} me-2"></i>
+                    {% if form.instance.pk %}Редактирование предмета{% else %}Создание нового предмета{% endif %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.non_field_errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="mb-3">
+                        <label for="id_id_cat" class="form-label">
+                            <strong>Категория *</strong>
+                        </label>
+                        {{ form.id_cat }}
+                        {% if form.id_cat.errors %}
+                        <div class="text-danger small mt-1">
+                            {% for error in form.id_cat.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_title" class="form-label">
+                            <strong>Название предмета *</strong>
+                        </label>
+                        {{ form.title }}
+                        {% if form.title.errors %}
+                        <div class="text-danger small mt-1">
+                            {% for error in form.title.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_slug" class="form-label">
+                            <strong>Slug</strong>
+                        </label>
+                        {{ form.slug }}
+                        {% if form.slug.errors %}
+                        <div class="text-danger small mt-1">
+                            {% for error in form.slug.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        <div class="form-text">Автоматически заполняется из названия</div>
+                    </div>
+
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'adm:namecategories_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-1"></i>Назад к списку
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save me-1"></i>
+                            {% if form.instance.pk %}Сохранить изменения{% else %}Создать предмет{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Автозаполнение slug из title
+        const titleField = document.getElementById('id_title');
+        const slugField = document.getElementById('id_slug');
+        
+        if (titleField && slugField) {
+            titleField.addEventListener('blur', function() {
+                if (!slugField.value) {
+                    const slug = titleField.value
+                        .toLowerCase()
+                        .replace(/[^\w\u0400-\u04FF]+/g, '-')
+                        .replace(/^-+|-+$/g, '');
+                    slugField.value = slug;
+                }
+            });
+        }
+        
+        // Добавляем классы к полям формы
+        const fields = document.querySelectorAll('input, select, textarea');
+        fields.forEach(field => {
+            if (!field.classList.contains('form-check-input')) {
+                field.classList.add('form-control');
+            }
+        });
+    });
+</script>
+{% endblock %}

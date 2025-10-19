@@ -1,0 +1,77 @@
+{% extends 'adm_base.html' %}
+
+{% block title %}Главы - Панель управления{% endblock %}
+{% block page_title %}Управление главами{% endblock %}
+
+{% block content %}
+<div class="card card-custom">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <h5 class="card-title mb-0">
+            <i class="fas fa-file-alt me-2"></i>Список глав
+        </h5>
+        <a href="{% url 'adm:glav_create' %}" class="btn btn-primary">
+            <i class="fas fa-plus me-1"></i>Добавить главу
+        </a>
+    </div>
+    <div class="card-body">
+        {% if glavs %}
+        <div class="table-responsive">
+            <table class="table table-hover table-custom">
+                <thead class="table-light">
+                    <tr>
+                        <th>Название</th>
+                        <th>Раздел</th>
+                        <th>Предмет</th>
+                        <th>Категория</th>
+                        <th>Порядок</th>
+                        <th width="120">Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for glav in glavs %}
+                    <tr>
+                        <td>
+                            <strong>{{ glav.name }}</strong>
+                        </td>
+                        <td>
+                            <span class="badge bg-info">{{ glav.razdel.name }}</span>
+                        </td>
+                        <td>
+                            <small class="text-muted">{{ glav.razdel.categori.title }}</small>
+                        </td>
+                        <td>
+                            <small class="text-muted">{{ glav.razdel.categori.id_cat.title }}</small>
+                        </td>
+                        <td>
+                            <span class="badge bg-secondary">{{ glav.order }}</span>
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="{% url 'adm:glav_edit' glav.pk %}" 
+                                   class="btn btn-outline-primary" title="Редактировать">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{% url 'adm:glav_delete' glav.pk %}" 
+                                   class="btn btn-outline-danger" title="Удалить">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-file-alt fa-4x text-muted mb-3"></i>
+            <h5 class="text-muted">Главы не найдены</h5>
+            <p class="text-muted mb-4">Создайте первую главу для начала работы</p>
+            <a href="{% url 'adm:glav_create' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-plus me-2"></i>Создать главу
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
